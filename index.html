@@ -1,0 +1,101 @@
+<script>
+    // Return random int
+function GetRandomInt(){
+    return Math.floor(Math.random() * 3)
+}
+// Human's turn
+let choice;
+function humanChoice (){
+choice = prompt("What's your choice? ").toLowerCase()
+return choice
+}
+
+// Computer turn
+var computerChoice;
+function GetComputerChoice(){
+        var random_num = GetRandomInt()
+        if (random_num == 0){
+            computerChoice = 'rock'  
+        }
+        else if (random_num == 1){
+            computerChoice = 'scissor'   
+        }
+        else if (random_num == 2){
+            computerChoice = 'paper'
+        }
+        else{
+            console.log("Erorr accured with the computer's option! ")
+        }
+        return computerChoice
+}     
+// score counter
+let player_score = 0;
+let bot_score = 0;
+
+function GetScore(player = false, bot = false) {
+    if (player){ player_score++}
+    else if(bot){ bot_score++}
+    console.log(`${player_score}:${bot_score}`)
+
+    return player_score && bot_score
+}
+
+// round counter
+let round = 0;
+function roundCount(rounds) {
+    if (round === rounds) {
+        return false;
+    }
+    round++;
+    return true;
+}
+
+// Winner Decider
+function winner(player, bot){
+    if (player == bot){
+        console.log('The game is tied')
+    }
+    else if (player>= bot){
+        console.log('The player wins the game!!!')
+    }
+    else{
+        console.log('The computer wins the game!!!')
+    }
+    console.log(round + ' rounds is played')
+}
+
+// main loop
+while (roundCount(5)){
+
+    humanChoice()
+    GetComputerChoice()
+    
+    if (choice === 'rock'||choice ==='paper'||choice ==='scissor'){
+
+            console.log("The player has chosen: " + choice)
+            console.log("The computer has chosen: " + computerChoice)
+
+
+            if (choice === computerChoice){
+                console.log("It's a tie!")
+                GetScore()
+            }
+            else if (choice === 'paper' && computerChoice === 'rock'  ||
+             choice === 'rock' && computerChoice === 'scissor' ||
+              choice === 'scissor' && computerChoice === 'paper'){
+                    console.log('The player wins the round!! ' + choice + ' beats ' + computerChoice)
+                    GetScore(true)
+            }
+            else{
+                    console.log('The computer wins the round!! ' + choice + ' is beaten with ' + computerChoice)
+                    GetScore(false, true)
+                   }
+                }
+
+    else{console.log('Your choice is not included in the game. Try again with (Scissor, Rock, Paper)')
+        round = round - 1}
+
+}
+winner(player_score, bot_score)
+console.log('-------------------')
+</script>
